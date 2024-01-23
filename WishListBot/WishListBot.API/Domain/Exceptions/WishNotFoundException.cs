@@ -1,14 +1,22 @@
 ﻿namespace WishListBot.API.Domain.Exceptions
 {
-    // Класс, который представляет исключение, что желание не найдено
+    /// <summary>
+    /// Класс, который представляет исключение, что желание не найдено
+    /// </summary>
     public class WishNotFoundException : Exception
     {
-        // Конструктор, который принимает номер желания
+        /// <summary>
+        /// Конструктор, который принимает номер желания
+        /// </summary>
+        /// <param name="number"></param>
         public WishNotFoundException(int number) : base($"Желание с номером {number} не найдено")
         {
         }
 
-        // Конструктор, который принимает идентификатор желания
+        /// <summary>
+        /// Конструктор, который принимает идентификатор желания
+        /// </summary>
+        /// <param name="id"></param>
         public WishNotFoundException(string id) : base($"Желание с идентификатором {id} не найдено")
         {
         }

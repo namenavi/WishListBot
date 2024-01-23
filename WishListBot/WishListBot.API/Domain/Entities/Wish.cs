@@ -1,74 +1,102 @@
 ﻿namespace WishListBot.API.Domain.Entities
 {
-    // Класс, который представляет сущность желания
+    /// <summary>
+    /// Класс, который представляет сущность желания
+    /// </summary>
     public class Wish
     {
-        // Свойство, которое хранит идентификатор желания
+        /// <summary>
+        /// Свойство, которое хранит идентификатор желания
+        /// </summary>
         public int Id { get; set; }
 
-        // Свойство, которое хранит название желания
+        /// <summary>
+        /// Свойство, которое хранит название желания
+        /// </summary>
         public string Name { get; set; }
 
-        // Свойство, которое хранит статус желания
+        /// <summary>
+        /// Свойство, которое хранит статус желания
+        /// </summary>
         public WishStatus Status { get; set; }
 
-        // Свойство, которое хранит ссылку на пользователя, которому принадлежит желание
+        /// <summary>
+        /// Свойство, которое хранит ссылку на пользователя, которому принадлежит желание
+        /// </summary>
         public User Owner { get; set; }
 
-        // Свойство, которое хранит ссылку на пользователя, который выбрал желание для исполнения
+        /// <summary>
+        /// Свойство, которое хранит ссылку на пользователя, который выбрал желание для исполнения
+        /// </summary>
         public User Executor { get; set; }
 
-        // Свойство, которое хранит дату выбора желания
+        /// <summary>
+        /// Свойство, которое хранит дату выбора желания
+        /// </summary>
         public DateTime? ChosenDate { get; set; }
 
-        // Свойство, которое хранит дату исполнения желания
+        /// <summary>
+        /// Свойство, которое хранит дату исполнения желания
+        /// </summary>
         public DateTime? DoneDate { get; set; }
 
-        // Свойство, которое хранит оценку исполненного желания
+        /// <summary>
+        /// Свойство, которое хранит оценку исполненного желания
+        /// </summary>
         public int? Rating { get; set; }
 
-        // Конструктор, который принимает название желания
+        /// <summary>
+        /// Конструктор, который принимает название желания
+        /// </summary>
+        /// <param name="name"></param>
         public Wish(string name)
         {
-            // Присваиваем свойству Name значение параметра name
             Name = name;
-
-            // Присваиваем свойству Status значение WishStatus.New
             Status = WishStatus.New;
         }
 
-        // Метод, который проверяет, может ли желание быть выбрано для исполнения
+        /// <summary>
+        /// Метод, который проверяет, может ли желание быть выбрано для исполнения
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeChosen()
         {
-            // Возвращаем результат сравнения свойства Status с WishStatus.New
             return Status == WishStatus.New;
         }
 
-        // Метод, который проверяет, может ли желание быть перемещено в исполненное
+        /// <summary>
+        /// Метод, который проверяет, может ли желание быть перемещено в исполненное
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeMovedToDone()
         {
-            // Возвращаем результат сравнения свойства Status с WishStatus.Chosen
             return Status == WishStatus.Chosen;
         }
 
-        // Метод, который проверяет, может ли желание быть оценено
+        /// <summary>
+        /// Метод, который проверяет, может ли желание быть оценено
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeRated()
         {
-            // Возвращаем результат сравнения свойства Status с WishStatus.Done
             return Status == WishStatus.Done;
         }
 
-        // Метод, который проверяет, может ли желание быть назначено исполнителем
+        /// <summary>
+        /// Метод, который проверяет, может ли желание быть назначено исполнителем
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeAssigned()
         {
-            // Возвращаем результат сравнения свойства Status с WishStatus.New
             return Status == WishStatus.New;
         }
 
-        // Метод, который проверяет, может ли желание быть отменено
+        /// <summary>
+        /// Метод, который проверяет, может ли желание быть отменено
+        /// </summary>
+        /// <returns></returns>
         public bool CanBeCanceled()
         {
-            // Возвращаем результат логического ИЛИ сравнения свойства Status с WishStatus.Chosen и WishStatus.Assigned
             return Status == WishStatus.Chosen || Status == WishStatus.Assigned;
         }
     }

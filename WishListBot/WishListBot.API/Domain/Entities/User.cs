@@ -1,94 +1,108 @@
 ﻿namespace WishListBot.API.Domain.Entities
 {
-    // Класс, который представляет сущность пользователя
+    /// <summary>
+    /// Класс, который представляет сущность пользователя
+    /// </summary>
     public class User
     {
-        // Свойство, которое хранит идентификатор пользователя
+        /// <summary>
+        /// Свойство, которое хранит идентификатор пользователя
+        /// </summary>
         public int Id { get; set; }
 
-        // Свойство, которое хранит имя пользователя
+        /// <summary>
+        /// Свойство, которое хранит имя пользователя
+        /// </summary>
         public string Name { get; set; }
 
-        // Свойство, которое хранит список желаний пользователя
+        /// <summary>
+        /// Свойство, которое хранит список желаний пользователя
+        /// </summary>
         public List<Wish> Wishes { get; set; }
 
-        // Конструктор, который принимает имя пользователя
+        /// <summary>
+        /// Конструктор, который принимает имя пользователя
+        /// </summary>
+        /// <param name="name"></param>
         public User(string name)
         {
-            // Присваиваем свойству Name значение параметра name
             Name = name;
-
-            // Инициализируем свойство Wishes пустым списком
             Wishes = new List<Wish>();
         }
 
-        // Метод, который добавляет желание в список желаний пользователя
+        /// <summary>
+        /// Метод, который добавляет желание в список желаний пользователя
+        /// </summary>
+        /// <param name="wish"></param>
         public void AddWish(Wish wish)
         {
-            // Присваиваем свойству Owner желания ссылку на текущего пользователя
+            /// Присваиваем свойству Owner желания ссылку на текущего пользователя
             wish.Owner = this;
-
-            // Добавляем желание в список Wishes
             Wishes.Add(wish);
         }
 
-        // Метод, который удаляет желание из списка желаний пользователя
+        /// <summary>
+        /// Метод, который удаляет желание из списка желаний пользователя
+        /// </summary>
+        /// <param name="wish"></param>
         public void DeleteWish(Wish wish)
         {
-            // Удаляем желание из списка Wishes
             Wishes.Remove(wish);
         }
 
-        // Метод, который перемещает желание в исполненное
+        /// <summary>
+        /// Метод, который перемещает желание в исполненное
+        /// </summary>
+        /// <param name="wish"></param>
         public void MoveWishToDone(Wish wish)
         {
-            // Присваиваем свойству Status желания значение WishStatus.Done
             wish.Status = WishStatus.Done;
-
-            // Присваиваем свойству DoneDate желания текущую дату
             wish.DoneDate = DateTime.Now;
         }
 
-        // Метод, который выбирает желание другого пользователя для исполнения
+        /// <summary>
+        /// Метод, который выбирает желание другого пользователя для исполнения
+        /// </summary>
+        /// <param name="otherUser"></param>
+        /// <param name="wish"></param>
         public void ChooseWish(User otherUser, Wish wish)
         {
-            // Присваиваем свойству Status желания значение WishStatus.Chosen
             wish.Status = WishStatus.Chosen;
-
-            // Присваиваем свойству Executor желания ссылку на текущего пользователя
             wish.Executor = this;
-
-            // Присваиваем свойству ChosenDate желания текущую дату
             wish.ChosenDate = DateTime.Now;
         }
 
-        // Метод, который оценивает исполненное желание
+        /// <summary>
+        /// Метод, который оценивает исполненное желание
+        /// </summary>
+        /// <param name="otherUser"></param>
+        /// <param name="wish"></param>
+        /// <param name="rating"></param>
         public void RateWish(User otherUser, Wish wish, int rating)
         {
-            // Присваиваем свойству Rating желания значение параметра rating
             wish.Rating = rating;
         }
 
-        // Метод, который назначает исполнителя желания
+        /// <summary>
+        /// Метод, который назначает исполнителя желания
+        /// </summary>
+        /// <param name="otherUser"></param>
+        /// <param name="wish"></param>
         public void AssignWish(User otherUser, Wish wish)
         {
-            // Присваиваем свойству Status желания значение WishStatus.Assigned
             wish.Status = WishStatus.Assigned;
-
-            // Присваиваем свойству Executor желания ссылку на текущего пользователя
             wish.Executor = this;
         }
 
-        // Метод, который отменяет выбор или назначение желания
+        /// <summary>
+        /// Метод, который отменяет выбор или назначение желания
+        /// </summary>
+        /// <param name="otherUser"></param>
+        /// <param name="wish"></param>
         public void CancelWish(User otherUser, Wish wish)
         {
-            // Присваиваем свойству Status желания значение WishStatus.New
             wish.Status = WishStatus.New;
-
-            // Присваиваем свойству Executor желания null
             wish.Executor = null;
-
-            // Присваиваем свойству ChosenDate желания null
             wish.ChosenDate = null;
         }
     }
