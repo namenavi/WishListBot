@@ -25,11 +25,11 @@ namespace WishListBot.API
             app.MapPost("/", async (HttpContext httpContext, ITelegramBotClient botClient) =>
             {
                 var update = JsonConvert.DeserializeObject<Update>(httpContext.Request.ReadFromJsonAsync<object>().Result.ToString());
-                if(update != null)
+                if(update == null)
                 {
                     return;
                 }
-                switch(update?.Type)
+                switch(update.Type)
                 {
                     case UpdateType.Message:
                         await HandleMessageAsync(update.Message, botClient);
@@ -54,6 +54,16 @@ namespace WishListBot.API
                     // ƒобавл€ем другие типы сообщений
             }
         }
+        public static string Reverse(string text)
+        {
+            char[] cArray = text.ToCharArray();
+            string reverse = String.Empty;
+            for(int i = cArray.Length - 1; i > -1; i--)
+            {
+                reverse += cArray[i];
+            }
+            return reverse;
+        }
 
         // јсинхронный метод дл€ обработки текстовых сообщений и команд
         static async Task HandleTextMessageAsync(Message message, ITelegramBotClient botClient)
@@ -69,7 +79,7 @@ namespace WishListBot.API
                     response = "You can use the following commands:\n/start - Start the conversation\n/help - Get help information\n/echo - Repeat your message\n/time - Get the current time";
                     break;
                 case "/echo":
-                    response = "Please type something after /echo and I will repeat it.";
+                    response = "я не понимать теб€!!!!!!! ";
                     break;
                 case "/time":
                     response = $"The current time is {DateTime.Now}";
@@ -82,7 +92,7 @@ namespace WishListBot.API
                     // »наче говорим, что не понимаем команду и предлагаем посмотреть список команд
                     else
                     {
-                        response = "Sorry, I don't understand that command. Please use /help to see the available commands.";
+                        response =  $"„то ты хочешь??? оп€ть издеваешьс€. Ќу ладно вот “во€ строка на оборот [{Reverse(message.Text)}] ";
                     }
                     break;
             }

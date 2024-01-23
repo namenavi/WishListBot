@@ -14,7 +14,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="ApplicationBLL\Commands\" />
+    <Folder Include="ApplicationBLL\Queries\" />
+    <Folder Include="ApplicationBLL\Handlers\" />
+    <Folder Include="ApplicationBLL\Interfaces\" />
+    <Folder Include="ApplicationBLL\DTOs\" />
+    <Folder Include="Infrastructure\Persistence\" />
+    <Folder Include="Infrastructure\Services\" />
+    <Folder Include="Infrastructure\Settings\" />
+    <Folder Include="Presentation\Controllers\" />
+    <Folder Include="Presentation\Models\" />
+    <Folder Include="Presentation\Validators\" />
   </ItemGroup>
 
 </Project>
