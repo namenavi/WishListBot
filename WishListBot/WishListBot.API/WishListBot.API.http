@@ -1,6 +1,6 @@
 @WishListBot.API_HostAddress = http://localhost:5270
 
-GET {{WishListBot.API_HostAddress}}/weatherforecast/
+GET {{WishListBot.API_HostAddress}}/
 Accept: application/json
 
 ###
