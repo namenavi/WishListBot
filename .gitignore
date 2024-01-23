@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+# Fody - auto-generated XML schema
+[Aa]ppsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -362,5 +364,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# Fody - auto-generated XML schema
-appsettings.json
+
