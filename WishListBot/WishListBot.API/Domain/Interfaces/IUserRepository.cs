@@ -17,6 +17,12 @@ namespace WishListBot.API.Domain.Interfaces
         Task UpdateUserAsync(User user);
 
         // Метод для удаления пользователя по имени
-        Task DeleteUserAsync(string userName);
+        Task DeleteUserAsync(User user);
+        /// <summary>
+        /// Метод, который асинхронно получает пользователя по идентификатору
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<User> GetUserByIdAsync(int id);
     }
 }

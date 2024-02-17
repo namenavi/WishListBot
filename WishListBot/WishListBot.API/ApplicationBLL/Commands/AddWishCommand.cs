@@ -1,30 +1,25 @@
 ﻿using MediatR;
+using WishListBot.API.ApplicationBLL.DTOs;
 
 namespace WishListBot.API.ApplicationBLL.Commands
 {
     /// <summary>
     /// Класс, который представляет команду добавления желания
     /// </summary>
-    public class AddWishCommand : IRequest
+    public class AddWishCommand : IRequest<WishDto>
     {
-        /// <summary>
-        /// Свойство, которое хранит название желания
-        /// </summary>
-        public string WishName { get; set; }
+        // Свойство для хранения данных пользователя
+        public UserDto User { get; }
 
-        /// <summary>
-        /// Конструктор, который принимает название желания
-        /// </summary>
-        /// <param name="wishName"></param>
-        /// <exception cref="ArgumentException"></exception>
-        public AddWishCommand(string wishName)
+        // Свойство для хранения названия желания
+        public WishDto Wish { get; }
+
+ 
+        // Конструктор с параметрами
+        public AddWishCommand(UserDto user, WishDto wish)
         {
-            if(string.IsNullOrEmpty(wishName))
-            {
-                throw new ArgumentException("Название желания не может быть пустым", nameof(wishName));
-            }
-
-            WishName = wishName;
+            User = user;
+            Wish = wish;
         }
     }
 }

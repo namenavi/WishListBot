@@ -8,7 +8,7 @@
         /// <summary>
         /// Свойство, которое хранит идентификатор пользователя
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Свойство, которое хранит имя пользователя
@@ -18,7 +18,15 @@
         /// <summary>
         /// Свойство, которое хранит список желаний пользователя
         /// </summary>
-        public List<Wish> Wishes { get; set; }
+        public ICollection<Wish>? Wishes { get; set; }
+        /// <summary>
+        /// Свойство, которое хранит список желаний для исполнения
+        /// </summary>
+        public ICollection<Wish>? ExecutableWishes { get; set; }
+        /// <summary>
+        /// Идентификатор чата
+        /// </summary>
+        public int ChatId { get; set; }
 
         /// <summary>
         /// Конструктор, который принимает имя пользователя
@@ -28,6 +36,7 @@
         {
             Name = name;
             Wishes = new List<Wish>();
+            ExecutableWishes = new List<Wish>();
         }
 
         /// <summary>
@@ -37,17 +46,17 @@
         public void AddWish(Wish wish)
         {
             /// Присваиваем свойству Owner желания ссылку на текущего пользователя
-            wish.Owner = this;
-            Wishes.Add(wish);
+            wish.User = this;
+            Wishes!.Add(wish);
         }
 
         /// <summary>
         /// Метод, который удаляет желание из списка желаний пользователя
         /// </summary>
         /// <param name="wish"></param>
-        public void DeleteWish(Wish wish)
+        public bool DeleteWish(Wish wish)
         {
-            Wishes.Remove(wish);
+           return Wishes!.Remove(wish);
         }
 
         /// <summary>
@@ -65,7 +74,7 @@
         /// </summary>
         /// <param name="otherUser"></param>
         /// <param name="wish"></param>
-        public void ChooseWish(User otherUser, Wish wish)
+        public void ChooseWish(Wish wish)
         {
             wish.Status = WishStatus.Chosen;
             wish.Executor = this;
@@ -78,28 +87,28 @@
         /// <param name="otherUser"></param>
         /// <param name="wish"></param>
         /// <param name="rating"></param>
-        public void RateWish(User otherUser, Wish wish, int rating)
+        public void RateWish(Wish wish, int rating)
         {
             wish.Rating = rating;
         }
 
-        /// <summary>
-        /// Метод, который назначает исполнителя желания
-        /// </summary>
-        /// <param name="otherUser"></param>
-        /// <param name="wish"></param>
-        public void AssignWish(User otherUser, Wish wish)
-        {
-            wish.Status = WishStatus.Assigned;
-            wish.Executor = this;
-        }
+        ///// <summary>
+        ///// Метод, который назначает исполнителя желания
+        ///// </summary>
+        ///// <param name="otherUser"></param>
+        ///// <param name="wish"></param>
+        //public void AssignWish(Wish wish)
+        //{
+        //    wish.Status = WishStatus.Assigned;
+        //    wish.Executor = this;
+        //}
 
         /// <summary>
         /// Метод, который отменяет выбор или назначение желания
         /// </summary>
         /// <param name="otherUser"></param>
         /// <param name="wish"></param>
-        public void CancelWish(User otherUser, Wish wish)
+        public void CancelWish(Wish wish)
         {
             wish.Status = WishStatus.New;
             wish.Executor = null;

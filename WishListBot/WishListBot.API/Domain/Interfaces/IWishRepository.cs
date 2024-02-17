@@ -55,6 +55,11 @@ namespace WishListBot.API.Domain.Interfaces
         /// <returns></returns>
         Task<List<Wish>> GetByExecutorAsync(User executor);
 
+        /// <summary>
         /// Метод, который асинхронно получает список желаний по пользователю
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        Task<List<Wish>> GetByUserAsync(User user);
     }
 }
