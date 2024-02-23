@@ -11,7 +11,7 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Свойство, которое хранит  краткое название желания
+        /// Свойство, которое хранит краткое название желания
         /// </summary>
         public string Name { get; set; }
 
@@ -35,11 +35,7 @@
         /// <summary>
         /// Свойство, которое хранит дату выбора желания
         /// </summary>
-        public DateTime CreateDate { get; set; } = DateTime.Now;
-        /// <summary>
-        /// Свойство, которое хранит дату выбора желания
-        /// </summary>
-        public DateTime? ChosenDate { get; set; }
+        public DateTime? ChosenDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Свойство, которое хранит дату исполнения желания
@@ -51,20 +47,19 @@
         /// </summary>
         public int? Rating { get; set; }
         /// <summary>
-        /// Свойство хранит описание желания
+        /// Свойство хранит полное описание желания
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// Конструктор, который принимает название желания
         /// </summary>
         /// <param name="name"></param>
-        public Wish(string name, string description)
+        public Wish(string name)
         {
             Name = name;
-            Description = description;
+            Status = WishStatus.New;
         }
-
 
         /// <summary>
         /// Метод, который проверяет, может ли желание быть выбрано для исполнения
@@ -94,12 +89,21 @@
         }
 
         /// <summary>
+        /// Метод, который проверяет, может ли желание быть назначено исполнителем
+        /// </summary>
+        /// <returns></returns>
+        public bool CanBeAssigned()
+        {
+            return Status == WishStatus.New;
+        }
+
+        /// <summary>
         /// Метод, который проверяет, может ли желание быть отменено
         /// </summary>
         /// <returns></returns>
         public bool CanBeCanceled()
         {
-            return Status == WishStatus.Chosen; //|| Status == WishStatus.Assigned
+            return Status == WishStatus.Chosen;
         }
     }
 }

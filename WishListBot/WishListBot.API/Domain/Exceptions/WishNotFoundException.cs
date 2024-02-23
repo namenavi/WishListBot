@@ -17,7 +17,7 @@
         /// Конструктор, который принимает идентификатор желания
         /// </summary>
         /// <param name="id"></param>
-        public WishNotFoundException(string id) : base($"Желание с идентификатором {id} не найдено")
+        public WishNotFoundException(Guid id) : base($"Желание с идентификатором {id} не найдено")
         {
         }
     }

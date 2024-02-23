@@ -25,7 +25,7 @@ namespace WishListBot.API.Infrastructure.Services
             using var scope = _services.CreateScope();
             _botClient = scope.ServiceProvider.GetRequiredService<ITelegramBotClient>();
 
-            var webhookAddress = @$"{_botConfig.HostAddress}bot/{_botConfig.BotToken}"; ///
+            var webhookAddress = @$"{_botConfig.WebhookUrl}"; ///bot/{_botConfig.BotToken}
             _logger.LogInformation("Setting webhook: {webhookAddress}", webhookAddress);
             await _botClient.SetWebhookAsync(
                 url: webhookAddress,

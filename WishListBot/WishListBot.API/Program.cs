@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.HttpOverrides;
-using Newtonsoft.Json;
 using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-using Microsoft.Extensions.DependencyInjection;
 using WishListBot.API.Infrastructure.Settings;
 using WishListBot.API.Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
+using WishListBot.API.ApplicationBLL.Interfaces;
+using WishListBot.API.Infrastructure.Persistence;
+using WishListBot.API.Domain.Interfaces;
 
 namespace WishListBot.API
 {
@@ -23,12 +23,16 @@ namespace WishListBot.API
                     .AddTypedClient<ITelegramBotClient>(httpClient
                         => new TelegramBotClient(botConfig.BotToken, httpClient));
             }
+            string connection = builder.Configuration.GetConnectionString("DefaultConnection")!;
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connection));
             builder.Services.AddScoped<HandleUpdateService>();
+            builder.Services.AddScoped<IWishService, WishService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IUserRepository, WishService>();
+            //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddControllers().AddNewtonsoftJson();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            //builder.Services.AddApplicationInsightsTelemetry();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.Configure<ForwardedHeadersOptions>(options =>
             {
@@ -38,20 +42,13 @@ namespace WishListBot.API
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if(app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
 
             app.UseRouting();
-            //app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             if(botConfig != null)
             {
                 var token = botConfig.BotToken;
-                var url = $"bot/{token}";
+                var url = $"";//bot/{token}
                 app.MapControllerRoute("webhooktelegram", url, defaults:
                     new { controller = "Webhook", action = "Post" });
             }

@@ -2,7 +2,7 @@
 {
     public class UserNotFoundException : Exception
     {
-        public UserNotFoundException(string User) : base($"Пользователь: {User} не найден")
+        public UserNotFoundException(Guid User) : base($"Пользователь: {User} не найден")
         {
         }
     }

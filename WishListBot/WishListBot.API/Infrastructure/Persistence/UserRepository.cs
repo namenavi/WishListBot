@@ -55,7 +55,7 @@ namespace WishListBot.API.Infrastructure.Persistence
             }
 
             // Обновляем свойства пользователя
-            userToUpdate.Name = user.Name;
+            userToUpdate.UserName = user.UserName;
             userToUpdate.Wishes = user.Wishes;
         }
 
@@ -74,7 +74,7 @@ namespace WishListBot.API.Infrastructure.Persistence
         public async Task<User> GetUserByNameAsync(string userName)
         {
             // Возвращаем пользователя из набора сущностей пользователей по имени
-            return await _context.Users.FirstOrDefaultAsync(u => u.Name == userName);
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
         }
     }
 }

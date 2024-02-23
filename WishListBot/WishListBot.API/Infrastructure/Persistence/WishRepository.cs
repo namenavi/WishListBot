@@ -78,7 +78,7 @@ namespace WishListBot.API.Infrastructure.Persistence
             // Обновляем свойства желания
             wishToUpdate.Name = wish.Name;
             wishToUpdate.Status = wish.Status;
-            wishToUpdate.Owner = wish.Owner;
+            wishToUpdate.User = wish.User;
             wishToUpdate.Executor = wish.Executor;
             wishToUpdate.ChosenDate = wish.ChosenDate;
             wishToUpdate.DoneDate = wish.DoneDate;
@@ -104,7 +104,7 @@ namespace WishListBot.API.Infrastructure.Persistence
         public async Task<List<Wish>> GetByUserAsync(User user)
         {
             // Возвращаем список желаний из набора сущностей желаний, отфильтрованный по пользователю
-            return await _context.Wishes.Where(w => w.Owner == user).ToListAsync();
+            return await _context.Wishes.Where(w => w.User == user).ToListAsync();
         }
 
         /// <summary>

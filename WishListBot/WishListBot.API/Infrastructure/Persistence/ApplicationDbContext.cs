@@ -61,12 +61,11 @@ public partial class ApplicationDbContext : DbContext
         modelBuilder.Entity<User>()
             .HasKey(u => u.Id); // Указание первичного ключа
         modelBuilder.Entity<User>()
-            .Property(u => u.Name) // Указание свойства имени
-            .IsRequired() // Обязательное поле
+            .Property(u => u.UserName) // Указание свойства имени
             .HasMaxLength(50); // Ограничение длины
         modelBuilder.Entity<User>()
-            .HasIndex(u => u.Name) // Указание индекса по имени
-           .IsUnique(); // Уникальное значение
+            .HasIndex(u => u.UserName) // Указание индекса по имени
+            .IsUnique(); // Уникальное значение
         modelBuilder.Entity<User>()
            .Property(u => u.ChatId) // Указание свойства идентификатора чата
            .IsRequired(); // Обязательное поле
@@ -74,43 +73,5 @@ public partial class ApplicationDbContext : DbContext
            .HasIndex(u => u.ChatId) // Указание индекса по идентификатору чата
            .IsUnique(); // Уникальное значение
     }
-
-
-    ///// <summary>
-    ///// Метод, который настраивает модели сущностей
-    ///// </summary>
-    ///// <param name="modelBuilder"></param>
-    //protected override void OnModelCreating(ModelBuilder modelBuilder)
-    //{
-    //    // Настраиваем сущность желания
-    //    modelBuilder.Entity<Wish>(w =>
-    //    {
-    //        w.Property<int>("Id")
-    //            .ValueGeneratedOnAdd();// Указываем, что свойство Id генерируется базой данных
-    //        w.HasKey(w => w.Id);  // Указываем, что свойство Id является первичным ключом
-    //        w.HasIndex(w => w.Id) 
-    //            .IsUnique(); // Указываем, что свойство Name является уникальным индексом
-    //    });
-
-    //    modelBuilder.Entity<User>(u =>
-    //    {
-    //        u.Property<int>("Id")
-    //            .ValueGeneratedOnAdd();
-    //        u.HasKey(u => u.Id);
-    //        u.HasIndex(u => u.Id)
-    //            .IsUnique();
-    //    });
-
-
-    //    // Настраиваем отношение один-ко-многим между пользователем и желаниями
-    //    modelBuilder.Entity<User>()
-    //        // Указываем, что пользователь имеет много желаний
-    //        .HasMany(u => u.Wishes)
-    //        // Указываем, что желание имеет одного владельца
-    //        .WithOne(w => w.Owner)
-    //        // Указываем, что при удалении пользователя удаляются все его желания
-    //        .OnDelete(DeleteBehavior.Cascade);
-
-    //}
 }
 

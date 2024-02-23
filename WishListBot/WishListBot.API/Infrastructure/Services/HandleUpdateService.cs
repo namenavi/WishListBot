@@ -12,18 +12,14 @@ namespace WishListBot.API.Infrastructure.Services
     public class HandleUpdateService
     {
         private readonly ITelegramBotClient _botClient;
-
-        // Свойство для хранения сервиса желаний
         private readonly IWishService _wishService;
-
-        // Свойство для хранения логгера
         private readonly ILogger<HandleUpdateService> _logger;
 
 
         public HandleUpdateService( IWishService wishService, ITelegramBotClient botClient, ILogger<HandleUpdateService> logger)
         {
             _botClient = botClient;
-            _wishService = wishService; // Инициализация сервиса желаний
+            _wishService = wishService; 
             _logger = logger;
         }
 
@@ -68,16 +64,16 @@ namespace WishListBot.API.Infrastructure.Services
             if (message.Type != MessageType.Text)
                 return;
 
-            var action = message.Text!.Split(' ')[0] switch
-            {
-                "/add_wish" => SendInlineKeyboard(_botClient, message),
-                "/choose_wish" => SendReplyKeyboard(_botClient, message),
-                "/remove" => RemoveKeyboard(_botClient, message),
-                "/request" => RequestContactAndLocation(_botClient, message),
-                _ => Usage(_botClient, message)
-            };
-            Message sentMessage = await action;
-            _logger.LogInformation("The message was sent with id: {sentMessageId}", sentMessage.MessageId);
+            //var action = message.Text!.Split(' ')[0] switch
+            //{
+            //    "/add_wish" => SendInlineKeyboard(_botClient, message),
+            //    "/choose_wish" => SendReplyKeyboard(_botClient, message),
+            //    "/remove" => RemoveKeyboard(_botClient, message),
+            //    "/request" => RequestContactAndLocation(_botClient, message),
+            //    _ => Usage(_botClient, message)
+            //};
+            //Message sentMessage = await action;
+            //_logger.LogInformation("The message was sent with id: {sentMessageId}", sentMessage.MessageId);
 
            
 
